@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文化智能体 · 基座平台</title>
+    <link rel="stylesheet" href="/static/css/base.css?v=20261020a" />
+    <link rel="stylesheet" href="/static/css/console.css?v=20261020a" />
+  </head>
+  <body>
+    <section class="hero console-hero">
+      <div>
+        <p class="eyebrow">文化智能体 · 基座与子平台架构</p>
+        <h1>基座平台 · 公共能力底座</h1>
+        <p>
+          统一建设一次，全部子平台复用。当前会话：
+          <span id="session-info">未登录</span>
+        </p>
+      </div>
+      <div class="hero-links">
+        <a href="/admin">租户管理后台</a>
+        <a href="/workflow-editor">工作流编排器</a>
+        <a href="/culture">文化子平台样板</a>
+        <a href="/demo">联调演示台</a>
+        <a href="/docs" target="_blank">API 文档</a>
+      </div>
+    </section>
+
+    <div id="auth-gate" class="auth-gate">
+      <div class="auth-gate-card">
+        <h2>请先登录基座</h2>
+        <p class="muted">登录后可使用六大公共能力控制台。</p>
+        <button class="base-btn primary" id="btn-gate-login">立即登录</button>
+      </div>
+    </div>
+
+    <main id="console-content" class="console is-hidden">
+      <nav class="cap-nav" id="cap-nav">
+        <button class="cap-tab active" data-tab="iam">1. 统一身份与权限</button>
+        <button class="cap-tab" data-tab="gateway">2. 模型网关调度</button>
+        <button class="cap-tab" data-tab="kb">3. 知识库服务</button>
+        <button class="cap-tab" data-tab="workflow">4. 工作流引擎</button>
+        <button class="cap-tab" data-tab="plugin">5. 插件工具框架</button>
+        <button class="cap-tab" data-tab="compliance">6. 安全合规审计</button>
+      </nav>
+
+      <section class="cap-panel active" data-panel="iam">
+        <h2>统一身份与权限</h2>
+        <p class="muted">账号体系 / 登录鉴权 / 分级授权</p>
+        <div class="split">
+          <div class="panel">
+            <h3>我的权限</h3>
+            <pre id="perm-out">{}</pre>
+            <div class="row">
+              <button class="base-btn" id="btn-perm">刷新权限</button>
+              <button class="base-btn" id="btn-users">租户用户</button>
+              <button class="base-btn" id="btn-roles">角色列表</button>
+            </div>
+            <pre id="iam-out">{}</pre>
+          </div>
+          <div class="panel">
+            <h3>注册子平台用户</h3>
+            <label>用户名</label>
+            <input id="reg-username" placeholder="new_user" />
+            <label>密码</label>
+            <input id="reg-password" type="password" placeholder="至少6位" />
+            <div class="row">
+              <button class="base-btn primary" id="btn-register">注册到当前租户</button>
+            </div>
+            <h3 style="margin-top:16px">创建角色</h3>
+            <label>角色名</label>
+            <input id="role-name" placeholder="运营人员" />
+            <label>权限（逗号分隔）</label>
+            <input id="role-perms" value="gateway:invoke,kb:manage" />
+            <div class="row">
+              <button class="base-btn" id="btn-create-role">创建角色</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cap-panel" data-panel="gateway">
+        <h2>模型网关调度</h2>
+        <p class="muted">多模型路由 / 调用配额 / 计费</p>
+        <div class="split">
+          <div class="panel">
+            <label>智能体</label>
+            <select id="agent-id"></select>
+            <label>模型</label>
+            <select id="model-id"></select>
+            <label>提问</label>
+            <textarea id="chat-input">请用一句话介绍文化智能体基座平台</textarea>
+            <div class="row">
+              <button class="base-btn primary" id="btn-chat">发起调用</button>
+              <button class="base-btn" id="btn-stat">调用统计</button>
+              <button class="base-btn" id="btn-billing">计费明细</button>
+            </div>
+            <pre id="chat-out">{}</pre>
+          </div>
+          <div class="panel">
+            <h3>登记智能体</h3>
+            <label>智能体 ID</label>
+            <input id="new-agent-id" placeholder="agent_culture" />
+            <label>名称</label>
+            <input id="new-agent-name" placeholder="文化问答助手" />
+            <label>配额</label>
+            <input id="new-agent-quota" type="number" value="100000" />
+            <div class="row">
+              <button class="base-btn primary" id="btn-reg-agent">登记</button>
+              <button class="base-btn" id="btn-refresh-agents">刷新列表</button>
+            </div>
+            <pre id="agent-out">{}</pre>
+            <h3>统计 / 计费</h3>
+            <pre id="stat-out">{}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="cap-panel" data-panel="kb">
+        <h2>知识库服务</h2>
+        <p class="muted">向量索引 / RAG 检索 / 知识治理</p>
+        <div class="split">
+          <div class="panel">
+            <label>知识库名称</label>
+            <input id="kb-name" value="文化知识库" />
+            <div class="row">
+              <button class="base-btn primary" id="btn-kb-create">创建仓库</button>
+              <button class="base-btn" id="btn-kb-list">我的仓库</button>
+            </div>
+            <label>仓库 ID</label>
+            <input id="kb-repo-id" placeholder="创建后自动填充" />
+            <label>文档内容</label>
+            <textarea id="kb-text">文化智能体聚焦非遗、文旅、典籍与创意内容。基座提供统一身份、网关、知识库与工作流能力，子平台沉淀领域知识与业务页面。</textarea>
+            <div class="row">
+              <button class="base-btn" id="btn-kb-upload">上传切分入库</button>
+              <button class="base-btn" id="btn-kb-docs">文档列表</button>
+              <button class="base-btn" id="btn-kb-snap">创建快照</button>
+            </div>
+            <label>检索</label>
+            <input id="kb-query" value="文化 基座" />
+            <div class="row">
+              <button class="base-btn primary" id="btn-kb-search">RAG 检索</button>
+            </div>
+          </div>
+          <div class="panel">
+            <pre id="kb-out">{}</pre>
+          </div>
+        </div>
+      </section>
+
+      <section class="cap-panel" data-panel="workflow">
+        <h2>工作流引擎</h2>
+        <p class="muted">提示词编排 / 流程自动化 / 版本管理</p>
+        <div class="split">
+          <div class="panel">
+            <h3>保存 Prompt</h3>
+            <label>名称</label>
+            <input id="prompt-name" value="文化讲解员" />
+            <label>内容</label>
+            <textarea id="prompt-content">你是文化讲解员，请用典雅简洁的中文回答：{query}</textarea>
+            <div class="row">
+              <button class="base-btn primary" id="btn-prompt-save">保存版本</button>
+              <button class="base-btn" id="btn-prompt-list">版本列表</button>
+            </div>
+            <h3>运行工作流（检索→大模型）</h3>
+            <label>知识库 repo_id</label>
+            <input id="wf-repo-id" />
+            <label>问题</label>
+            <input id="wf-query" value="基座平台做什么" />
+            <div class="row">
+              <button class="base-btn primary" id="btn-wf-run">执行</button>
+              <button class="base-btn" id="btn-wf-list">工作流列表</button>
+            </div>
+          </div>
+          <div class="panel"><pre id="wf-out">{}</pre></div>
+        </div>
+      </section>
+
+      <section class="cap-panel" data-panel="plugin">
+        <h2>插件工具框架</h2>
+        <p class="muted">外部 API / 工具调用 / 插件市场</p>
+        <div class="split">
+          <div class="panel">
+            <label>插件名</label>
+            <input id="pg-name" value="HTTP调试插件" />
+            <label>Endpoint</label>
+            <input id="pg-endpoint" value="https://httpbin.org/post" />
+            <div class="row">
+              <button class="base-btn primary" id="btn-pg-reg">注册插件</button>
+              <button class="base-btn" id="btn-pg-list">已安装</button>
+              <button class="base-btn" id="btn-pg-market">插件市场</button>
+            </div>
+            <label>插件 ID</label>
+            <input id="pg-id" placeholder="注册后自动填充" />
+            <label>调用参数 JSON</label>
+            <textarea id="pg-params">{"hello":"culture-base"}</textarea>
+            <div class="row">
+              <button class="base-btn primary" id="btn-pg-call">调用插件</button>
+              <button class="base-btn" id="btn-pg-logs">调用日志</button>
+            </div>
+          </div>
+          <div class="panel"><pre id="pg-out">{}</pre></div>
+        </div>
+      </section>
+
+      <section class="cap-panel" data-panel="compliance">
+        <h2>安全合规审计</h2>
+        <p class="muted">数据脱敏 / 日志留痕 / 合规审查框架</p>
+        <div class="split">
+          <div class="panel">
+            <h3>合规弹窗文案</h3>
+            <label>标题</label>
+            <input id="cmp-title" value="文化智能体合规提示" />
+            <label>内容</label>
+            <textarea id="cmp-content">本智能体提供文化内容辅助，输出仅供参考，不构成专业法律或医疗意见。</textarea>
+            <div class="row">
+              <button class="base-btn primary" id="btn-cmp-save">保存配置</button>
+              <button class="base-btn" id="btn-cmp-load">读取配置</button>
+              <button class="base-btn" id="btn-cmp-show">预览弹窗</button>
+            </div>
+            <h3>脱敏预览</h3>
+            <textarea id="mask-text">联系人张三，手机13812345678，邮箱zhangsan@example.com，证件110101199001011234</textarea>
+            <div class="row">
+              <button class="base-btn" id="btn-mask">执行脱敏</button>
+              <button class="base-btn" id="btn-audit">操作审计</button>
+              <button class="base-btn" id="btn-sessions">会话日志</button>
+            </div>
+          </div>
+          <div class="panel"><pre id="cmp-out">{}</pre></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="/static/js/base-components.js?v=20261020a"></script>
+    <script src="/static/js/console.js?v=20261020a"></script>
+  </body>
+</html>

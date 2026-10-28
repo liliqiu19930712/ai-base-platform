@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>智能体基座平台 V1.2</title>
+    <link rel="stylesheet" href="/static/css/base.css?v=20261015a" />
+  </head>
+  <body>
+    <section class="hero">
+      <h1>智能体基座平台</h1>
+      <p>
+        V1.2：统一登录 / SSO、多租户、模型网关、向量 RAG、工作流编排、灰度 A/B、合规审计。
+        当前会话：<span id="session-info">未登录</span>
+        · <a href="/admin" style="color:#7dceb8">管理后台</a>
+        · <a href="/console" style="color:#7dceb8">六大能力台</a>
+        · <a href="/workflow-editor" style="color:#7dceb8">编排器</a>
+        · <a href="/culture" style="color:#7dceb8">文化子平台</a>
+      </p>
+    </section>
+
+    <div id="auth-gate" class="auth-gate">
+      <div class="auth-gate-card">
+        <h2>请先登录</h2>
+        <p class="muted">未登录时不可查看演示台能力面板。</p>
+        <button class="base-btn primary" id="btn-gate-login">立即登录</button>
+      </div>
+    </div>
+
+    <section id="app-content" class="grid is-hidden">
+      <div class="panel">
+        <h2>智能体网关调用</h2>
+        <p class="muted">POST /api/v1/gateway/chat/completions —— 所有模型请求必须经网关</p>
+        <label>智能体 ID（仅本租户已登记）</label>
+        <select id="agent-id"><option value="">请先登录后加载</option></select>
+        <p class="muted" id="agent-hint">登录后自动加载当前租户可用智能体；未登记的 agent_id 将被网关拒绝。</p>
+        <label>提问</label>
+        <textarea id="chat-input">请介绍一下基座平台的职责边界</textarea>
+        <div class="row">
+          <button class="base-btn primary" id="btn-chat">发起调用</button>
+          <button class="base-btn" id="btn-quota">查看配额</button>
+        </div>
+        <h2 style="margin-top:18px">返回</h2>
+        <pre id="chat-out">{}</pre>
+        <h2>配额</h2>
+        <pre id="quota-out">{}</pre>
+      </div>
+
+      <div class="panel">
+        <h2>知识库服务</h2>
+        <p class="muted">创建 / 上传 / 检索 —— 内容由子平台管理，基座提供底层能力</p>
+        <label>知识库名称</label>
+        <input id="kb-name" value="教育演示库" />
+        <div class="row">
+          <button class="base-btn primary" id="btn-kb-create">创建仓库</button>
+        </div>
+        <label>文档内容</label>
+        <textarea id="kb-text">基座负责统一身份、模型网关、知识库底座、工作流编排与配额审计。子平台负责领域业务逻辑与业务页面。</textarea>
+        <div class="row">
+          <button class="base-btn" id="btn-kb-upload">上传切分入库</button>
+        </div>
+        <label>检索词</label>
+        <input id="kb-query" value="基座 网关" />
+        <div class="row">
+          <button class="base-btn" id="btn-kb-search">向量 RAG 检索</button>
+        </div>
+        <pre id="kb-out">{}</pre>
+      </div>
+
+      <div class="panel">
+        <h2>租户调用统计</h2>
+        <pre id="stat-out">{}</pre>
+      </div>
+
+      <div class="panel">
+        <h2>模型调用审计日志</h2>
+        <div class="row">
+          <button class="base-btn" id="btn-logs">刷新日志</button>
+        </div>
+        <pre id="log-out">{}</pre>
+      </div>
+    </section>
+
+    <script src="/static/js/base-components.js?v=20261015a"></script>
+    <script src="/static/js/app.js?v=20261015a"></script>
+  </body>
+</html>

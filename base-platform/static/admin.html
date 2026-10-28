@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基座管理后台 · 租户接入</title>
+    <link rel="stylesheet" href="/static/css/base.css?v=20261015a" />
+    <link rel="stylesheet" href="/static/css/admin.css?v=20261015a" />
+  </head>
+  <body>
+    <section class="hero">
+      <h1>基座管理后台</h1>
+      <p>
+        由基座管理员统一录入子平台租户、开通能力、配置配额并下发初始账号。
+        当前：<span id="session-info">未登录</span>
+      </p>
+    </section>
+
+    <div id="auth-gate" class="auth-gate">
+      <div class="auth-gate-card">
+        <h2>需要平台管理员登录</h2>
+        <p class="muted">未登录时不可查看或操作管理后台内容。</p>
+        <button class="base-btn primary" id="btn-gate-login">立即登录</button>
+      </div>
+    </div>
+
+    <section id="admin-content" class="admin-layout is-hidden">
+      <div class="panel">
+        <h2>新建子平台租户</h2>
+        <p class="muted">对应 SRS 接入前提：分配 tenant_id、开通能力、颁发初始管理员凭证</p>
+
+        <div class="form-grid">
+          <div>
+            <label>租户 ID（可空，自动生成）</label>
+            <input id="tenant_id" placeholder="例如 tenant_health" />
+          </div>
+          <div>
+            <label>租户名称 *</label>
+            <input id="tenant_name" placeholder="例如 健康智能体子平台" />
+          </div>
+          <div class="full">
+            <label>描述</label>
+            <input id="tenant_desc" placeholder="子平台用途说明" />
+          </div>
+          <div>
+            <label>初始管理员用户名 *</label>
+            <input id="admin_username" placeholder="health_admin" />
+          </div>
+          <div>
+            <label>初始管理员密码 *</label>
+            <input id="admin_password" type="password" placeholder="至少 6 位" />
+          </div>
+          <div>
+            <label>默认智能体 ID</label>
+            <input id="default_agent_id" value="default_agent" />
+          </div>
+          <div>
+            <label>月度 Token 配额</label>
+            <input id="default_quota_limit" type="number" value="100000" />
+          </div>
+          <div>
+            <label>联系人</label>
+            <input id="contact_name" />
+          </div>
+          <div>
+            <label>联系邮箱</label>
+            <input id="contact_email" type="email" />
+          </div>
+        </div>
+
+        <div class="feature-row">
+          <label><input type="checkbox" id="enable_gateway" checked /> 网关</label>
+          <label><input type="checkbox" id="enable_kb" checked /> 知识库</label>
+          <label><input type="checkbox" id="enable_workflow" checked /> 工作流</label>
+          <label><input type="checkbox" id="enable_plugin" checked /> 插件</label>
+        </div>
+
+        <div class="row">
+          <button class="base-btn primary" id="btn-create">创建租户</button>
+          <button class="base-btn" id="btn-refresh">刷新列表</button>
+          <a class="base-btn ghost" href="/">返回演示台</a>
+        </div>
+        <pre id="create-out">{}</pre>
+      </div>
+
+      <div class="panel">
+        <h2>已接入租户</h2>
+        <p class="muted">可停用租户、开关能力、调整配额、轮换凭证</p>
+        <div id="tenant-list" class="tenant-list"></div>
+      </div>
+    </section>
+
+    <script src="/static/js/base-components.js?v=20261015a"></script>
+    <script src="/static/js/admin.js?v=20261015a"></script>
+  </body>
+</html>

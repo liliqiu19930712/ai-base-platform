@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文化智能体子平台 · 样板</title>
+    <link rel="stylesheet" href="/static/css/base.css?v=20261020b" />
+    <link rel="stylesheet" href="/static/culture/culture.css?v=20261020b" />
+  </head>
+  <body class="culture-body">
+    <header class="culture-nav">
+      <div class="brand">
+        <span class="seal">文</span>
+        <div>
+          <strong>文化智能体子平台</strong>
+          <div class="muted">样板工程 · 能力全部来自基座复用</div>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <span id="session-info">未登录</span>
+        <button class="base-btn" id="btn-sso">基座 SSO 进入</button>
+        <button class="base-btn primary" id="btn-login">登录</button>
+        <button class="base-btn ghost" id="btn-logout">退出</button>
+        <a class="base-btn ghost" href="/">基座控制台</a>
+      </div>
+    </header>
+
+    <section class="culture-hero">
+      <h1>以文化为魂，以基座为骨</h1>
+      <p>本子平台只做文化业务体验：问答、典籍检索、合规提示。登录、模型、知识库、审计一律调用基座 API。</p>
+    </section>
+
+    <section class="culture-grid">
+      <article class="panel">
+        <h2>文化问答</h2>
+        <label>智能体</label>
+        <select id="agent-id"></select>
+        <label>问题</label>
+        <textarea id="ask">昆曲与京剧的主要区别是什么？</textarea>
+        <div class="row">
+          <button class="base-btn primary" id="btn-ask">向基座网关提问</button>
+        </div>
+        <pre id="ask-out">{}</pre>
+      </article>
+
+      <article class="panel">
+        <h2>典籍知识检索</h2>
+        <label>知识库 repo_id</label>
+        <input id="repo-id" placeholder="先创建文化库并上传文本" />
+        <div class="row">
+          <button class="base-btn" id="btn-create-kb">创建文化知识库</button>
+          <button class="base-btn" id="btn-upload-kb">写入示例典籍</button>
+        </div>
+        <label>检索词</label>
+        <input id="query" value="昆曲" />
+        <div class="row">
+          <button class="base-btn primary" id="btn-search">RAG 检索</button>
+        </div>
+        <pre id="kb-out">{}</pre>
+      </article>
+
+      <article class="panel">
+        <h2>子平台接入说明</h2>
+        <ol class="muted">
+          <li>管理后台创建租户（如 文化智能体）</li>
+          <li>开通网关/知识库能力并登记智能体</li>
+          <li>本页通过基座登录或 SSO 票据进入</li>
+          <li>业务页面只组合基座能力，不直连大模型</li>
+        </ol>
+        <div class="row">
+          <button class="base-btn" id="btn-disclaimer">合规提示</button>
+          <button class="base-btn" id="btn-wecom">企业微信 SSO</button>
+        </div>
+        <pre id="sso-out">{}</pre>
+      </article>
+    </section>
+
+    <script src="/static/js/base-components.js?v=20261020b"></script>
+    <script src="/static/culture/culture.js?v=20261020b"></script>
+  </body>
+</html>

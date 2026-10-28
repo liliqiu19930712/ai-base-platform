@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>工作流可视化编排 · 基座</title>
+    <link rel="stylesheet" href="/static/css/base.css?v=20261020b" />
+    <link rel="stylesheet" href="/static/css/workflow-editor.css?v=20261020b" />
+  </head>
+  <body>
+    <header class="editor-top">
+      <div>
+        <strong>工作流可视化编排器</strong>
+        <span class="muted" id="session-info">未登录</span>
+      </div>
+      <div class="row-inline">
+        <button class="base-btn" data-type="retrieve">+ 检索</button>
+        <button class="base-btn" data-type="prompt">+ Prompt</button>
+        <button class="base-btn" data-type="llm">+ 大模型</button>
+        <button class="base-btn" data-type="plugin">+ 插件</button>
+        <button class="base-btn primary" id="btn-save">保存到基座</button>
+        <button class="base-btn" id="btn-run">试运行</button>
+        <a class="base-btn ghost" href="/">返回控制台</a>
+      </div>
+    </header>
+
+    <main class="editor-layout">
+      <aside class="panel side">
+        <h3>节点属性</h3>
+        <div id="props" class="muted">选中画布中的节点进行编辑</div>
+        <h3 style="margin-top:16px">工作流名称</h3>
+        <input id="wf-name" value="文化RAG编排" />
+        <h3>DSL 预览</h3>
+        <pre id="dsl-out">{}</pre>
+      </aside>
+      <section class="canvas-wrap panel">
+        <svg id="edges" class="edges"></svg>
+        <div id="canvas" class="canvas"></div>
+      </section>
+    </main>
+
+    <script src="/static/js/base-components.js?v=20261020b"></script>
+    <script src="/static/js/workflow-editor.js?v=20261020b"></script>
+  </body>
+</html>

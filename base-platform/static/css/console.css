@@ -1,0 +1,75 @@
+.console-hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.eyebrow {
+  margin: 0 0 8px;
+  color: #7dceb8;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.hero-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.hero-links a {
+  color: #9fe0d0;
+  text-decoration: none;
+  border: 1px solid rgba(47, 158, 139, 0.35);
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.console {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+}
+.cap-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+.cap-tab {
+  border: 1px solid var(--line);
+  background: rgba(27, 47, 74, 0.65);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.cap-tab.active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), #247a6c);
+  border-color: transparent;
+}
+.cap-panel {
+  display: none;
+}
+.cap-panel.active {
+  display: block;
+}
+.cap-panel > h2 {
+  margin: 0 0 6px;
+}
+.split {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+@media (max-width: 900px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+.panel h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+}

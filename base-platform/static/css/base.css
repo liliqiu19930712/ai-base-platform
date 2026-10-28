@@ -1,0 +1,199 @@
+:root {
+  --bg: #0f1b2d;
+  --bg-soft: #16263d;
+  --panel: #1b2f4a;
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #e8eef7;
+  --muted: #9db0c9;
+  --accent: #2f9e8b;
+  --accent-2: #d4a017;
+  --danger: #e06767;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  --radius: 14px;
+  --font-display: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: var(--font-display);
+  color: var(--text);
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(47, 158, 139, 0.25), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(212, 160, 23, 0.18), transparent 55%),
+    linear-gradient(160deg, #0c1626, #13233a 45%, #0f1b2d);
+}
+
+body { padding-top: 64px; }
+
+.base-nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  background: rgba(15, 27, 45, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  z-index: 100;
+}
+
+.base-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.base-brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent), #1f6f63);
+  box-shadow: 0 0 0 3px rgba(47, 158, 139, 0.2);
+}
+
+.base-nav-actions { display: flex; gap: 10px; align-items: center; }
+
+.base-btn {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+.base-btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,0.2); }
+.base-btn.primary {
+  background: linear-gradient(135deg, var(--accent), #247a6c);
+  border-color: transparent;
+}
+.base-btn.ghost { background: transparent; }
+
+.hero {
+  max-width: 1100px;
+  margin: 48px auto 24px;
+  padding: 0 24px;
+}
+.hero h1 {
+  margin: 0 0 10px;
+  font-size: clamp(28px, 4vw, 42px);
+  line-height: 1.2;
+}
+.hero p { margin: 0; color: var(--muted); max-width: 720px; }
+
+.grid {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 18px;
+}
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+.panel {
+  background: rgba(27, 47, 74, 0.72);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+.panel h2 { margin: 0 0 12px; font-size: 18px; }
+.muted { color: var(--muted); font-size: 13px; }
+
+label { display: block; margin: 10px 0 6px; color: var(--muted); font-size: 13px; }
+input, select, textarea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  color: var(--text);
+  padding: 10px 12px;
+  outline: none;
+}
+textarea { min-height: 110px; resize: vertical; }
+
+.row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+.row > * { flex: 1; }
+
+pre {
+  background: #0b1422;
+  border-radius: 10px;
+  padding: 12px;
+  overflow: auto;
+  max-height: 320px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Modal */
+.base-modal-mask {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+.base-modal-mask.open { display: flex; }
+.base-modal {
+  width: min(420px, 92vw);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+.base-modal h3 { margin: 0 0 8px; }
+.base-toast {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background: #123248;
+  border: 1px solid rgba(47,158,139,0.45);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 12px;
+  display: none;
+  z-index: 300;
+  max-width: 360px;
+}
+.base-toast.show { display: block; animation: rise 0.25s ease; }
+@keyframes rise {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.is-hidden { display: none !important; }
+
+.auth-gate {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+}
+.auth-gate-card {
+  background: rgba(27, 47, 74, 0.85);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  text-align: center;
+}
+.auth-gate-card h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+.auth-gate-card .base-btn {
+  margin-top: 14px;
+  min-width: 140px;
+}

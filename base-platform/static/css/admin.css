@@ -1,0 +1,81 @@
+.admin-layout {
+  max-width: 1100px;
+  margin: 0 auto 48px;
+  padding: 0 24px;
+  display: grid;
+  gap: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 14px;
+}
+.form-grid .full { grid-column: 1 / -1; }
+@media (max-width: 800px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+.feature-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 14px 0 4px;
+  color: var(--muted);
+}
+.feature-row label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.tenant-list { display: grid; gap: 12px; margin-top: 12px; }
+.tenant-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(11, 20, 34, 0.55);
+  padding: 14px;
+}
+.tenant-card header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 8px;
+}
+.tenant-card h3 {
+  margin: 0;
+  font-size: 16px;
+}
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid var(--line);
+}
+.badge.active { color: #7dceb8; border-color: rgba(47,158,139,.45); }
+.badge.disabled { color: #e8a0a0; border-color: rgba(224,103,103,.4); }
+.tag {
+  display: inline-block;
+  margin: 2px 6px 2px 0;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  font-size: 12px;
+  color: var(--muted);
+}
+.tag.on { color: #9fe0d0; }
+.tag.off { color: #9a7780; text-decoration: line-through; }
+.tenant-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.tenant-actions input[type="number"] {
+  width: 140px;
+  padding: 8px 10px;
+}
